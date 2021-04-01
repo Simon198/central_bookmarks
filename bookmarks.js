@@ -84,6 +84,8 @@ function clearUrlList() {
 function createUrlList(filterText) {
     clearUrlList();
 
+    const container = document.getElementById('container');
+
     const filteredData = getFilteredData(filterText)
     for (const category of filteredData) {
         const categoryDiv = document.createElement('div');
@@ -92,7 +94,7 @@ function createUrlList(filterText) {
         categoryDiv.appendChild(document.createElement('hr'))
         // categoryDiv.appendChild(document.createElement('img'))
 
-        const bold = document.createElement("b");
+        const bold = document.createElement("h4");
         bold.innerHTML = '<i>' + category.name + ':</i>'
         categoryDiv.appendChild(bold)
 
@@ -104,7 +106,7 @@ function createUrlList(filterText) {
             aElement.classList.add('url-element')
             aElement.addEventListener('contextmenu', (event) => {
                 event.preventDefault();
-                openPopup(link, aElement, categoryDiv)
+                openPopup(link, aElement)
             });
             aElement.innerText = link.name;
             categoryDiv.appendChild(aElement)
@@ -116,7 +118,7 @@ function createUrlList(filterText) {
         aElement.innerText = 'Zurück nach oben';
         categoryDiv.appendChild(aElement);
 
-        document.body.appendChild(categoryDiv)
+        container.appendChild(categoryDiv)
     }
 }
 

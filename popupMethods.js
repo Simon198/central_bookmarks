@@ -15,13 +15,15 @@ function closePopups() {
     while (popups.length > 0) {
         popups[0].parentNode.removeChild(popups[0]);
     }
+    document.getElementById('dimmer').style = 'visibility: hidden';
 }
 
 window.addEventListener('click', event => { closePopupEventHandler(event) });
 window.addEventListener('contextmenu', event => { closePopupEventHandler(event) });
 
-function openPopup(contentItem, anchorNode, parentDiv) {
+function openPopup(contentItem, anchorNode) {
     closePopups();
+    document.getElementById('dimmer').style = 'visibility: visible';
 
     const anchorRect = anchorNode.getBoundingClientRect()
 
@@ -33,47 +35,71 @@ function openPopup(contentItem, anchorNode, parentDiv) {
     popup.addEventListener('click', (event) => {
         event.preventDefault()
     });
-    
+
 
     // url
+    const urlDiv = document.createElement('div');
+    urlDiv.classList.add('popup-column')
+
+    const urlTitle = document.createElement('span');
+    urlTitle.innerText = 'URL:'
+    urlDiv.appendChild(urlTitle)
+
     const url = document.createElement('a');
     url.setAttribute('href', contentItem.url);
     url.setAttribute('target', '_blank');
     url.innerText = contentItem.url
-    popup.appendChild(url)
+    urlDiv.appendChild(url)
 
     const urlCopyButton = document.createElement('button');
     urlCopyButton.innerText = 'URL kopieren'
     addCopyToClipBoardEvent(urlCopyButton, contentItem.url)
-    popup.appendChild(urlCopyButton)
+    urlDiv.appendChild(urlCopyButton)
+    popup.appendChild(urlDiv)
 
 
     // username
     if (contentItem.username) {
+        const usernameDiv = document.createElement('div');
+        usernameDiv.classList.add('popup-column')
+
+        const usernameTitle = document.createElement('span');
+        usernameTitle.innerText = 'Nutzername:'
+        usernameDiv.appendChild(usernameTitle)
+
         const username = document.createElement('span');
         username.innerText = contentItem.username
-        popup.appendChild(username)
+        usernameDiv.appendChild(username)
 
         const usernameCopyButton = document.createElement('button');
         usernameCopyButton.innerText = 'Nutzernamen kopieren'
         addCopyToClipBoardEvent(usernameCopyButton, contentItem.username)
-        popup.appendChild(usernameCopyButton)
+        usernameDiv.appendChild(usernameCopyButton)
+        popup.appendChild(usernameDiv)
     }
 
     // password
     if (contentItem.password) {
+        const passwordDiv = document.createElement('div');
+        passwordDiv.classList.add('popup-column')
+
+        const passwordTitle = document.createElement('span');
+        passwordTitle.innerText = 'Passwort:'
+        passwordDiv.appendChild(passwordTitle)
+
         const password = document.createElement('span');
         password.innerText = contentItem.password
-        popup.appendChild(password)
+        passwordDiv.appendChild(password)
 
         const passwordCopyButton = document.createElement('button');
         passwordCopyButton.innerText = 'Passwort kopieren'
         addCopyToClipBoardEvent(passwordCopyButton, contentItem.password)
-        popup.appendChild(passwordCopyButton)
+        passwordDiv.appendChild(passwordCopyButton)
+        popup.appendChild(passwordDiv)
     }
 
-    parentDiv.appendChild(popup)
-    
+    document.body.appendChild(popup)
+
 }
 
 function addCopyToClipBoardEvent(button, text) {

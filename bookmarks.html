@@ -9,20 +9,23 @@
 </head>
 
 
-<body bgcolor="#FFF8DC" id="body">
-  <h2>Bookmarks</h2>
+<body id="body">
+  <div class="dimmer" style="visibility: hidden;" id="dimmer"></div>
+  <div class="container" id="container">
+    <h2>Bookmarks</h2>
 
-  <div class="search-bar">
-    <input id="search" class="search-bar-input">
-    <div class="search-icon">
-      <span class="material-icons unselectable">search</span>
+    <div class="search-bar">
+      <input id="search" class="search-bar-input">
+      <div class="search-icon">
+        <span class="material-icons unselectable">search</span>
+      </div>
     </div>
-  </div>
 
-  <!-- init data -->
-  <script type="text/javascript" src="bookmarks.json"></script>
-  <script src="bookmarks.js" type="text/javascript"></script>
-  <script src="popupMethods.js" type="text/javascript"></script>
+    <!-- init data -->
+    <script type="text/javascript" src="bookmarks.json"></script>
+    <script src="bookmarks.js" type="text/javascript"></script>
+    <script src="popupMethods.js" type="text/javascript"></script>
+  </div>
 </body>
 
 </html>
