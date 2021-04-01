@@ -3,8 +3,8 @@
     align-items: center;
     justify-items: center;
     column-gap: 15px;
+    row-gap: 10px;
 
-    border: 1px solid blue;
     border-radius: 10px;
     overflow: hidden;
     padding-left: 20px;
