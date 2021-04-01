@@ -114,9 +114,21 @@ function createUrlList(filterText) {
         document.body.appendChild(categoryDiv)
     }
 }
-createUrlList();
 
+// subscripe to searchbar
 const searchbar = document.getElementById('search');
 searchbar.addEventListener('keyup', () => {
     createUrlList(searchbar.value);
 })
+
+// read url params
+var query = window.location.search.substring(1);
+var queryParams = {};
+query.split("&").forEach(function(part) {
+    var item = part.split("=");
+    queryParams[item[0]] = decodeURIComponent(item[1]);
+});
+
+// init url list
+searchbar.value = queryParams.search
+createUrlList(queryParams.search);
