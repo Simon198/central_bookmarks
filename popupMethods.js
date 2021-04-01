@@ -1,15 +1,41 @@
-// name, url, username, password
-function openPopup(event, contentItem, anchorNode, parentDiv) {
-    event.preventDefault();
+function closePopups() {
+    const popups = document.getElementsByClassName('popup');
+    while (popups.length > 0) {
+        popups[0].parentNode.removeChild(popups[0]);
+    }
+}
+
+window.addEventListener('click', event => {
+    if (
+        event.target.className !== 'url-element' &&
+        !document.querySelector('.popup').contains(event.target)
+    ) {
+        closePopups();
+    }
+});
+window.addEventListener('contextmenu', event => {
+    if (
+        event.target.className !== 'url-element' &&
+        !document.querySelector('.popup').contains(event.target)
+    ) {
+        closePopups();
+    }
+});
+
+function openPopup(contentItem, anchorNode, parentDiv) {
+    closePopups();
 
     const anchorRect = anchorNode.getBoundingClientRect()
-    console.log(anchorRect)
 
     const popup = document.createElement('div');
     popup.classList.add('popup')
     popup.style = "position: absolute;" +
         "left: " + anchorRect.left + "px;" +
         "top: " + (anchorRect.top + anchorRect.height + 2) + "px;";
+    popup.addEventListener('click', (event) => {
+        event.preventDefault()
+    });
+    
 
     // url
     const url = document.createElement('a');
@@ -46,9 +72,10 @@ function openPopup(event, contentItem, anchorNode, parentDiv) {
         passwordCopyButton.innerText = 'Passwort kopieren'
         addCopyToClipBoardEvent(passwordCopyButton, contentItem.password)
         popup.appendChild(passwordCopyButton)
-
-        parentDiv.appendChild(popup)
     }
+
+    parentDiv.appendChild(popup)
+    
 }
 
 function addCopyToClipBoardEvent(button, text) {

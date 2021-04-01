@@ -101,7 +101,11 @@ function createUrlList(filterText) {
             const aElement = document.createElement('a');
             aElement.setAttribute('href', link.url);
             aElement.setAttribute('target', '_blank');
-            aElement.addEventListener('contextmenu', (event) => openPopup(event, link, aElement, categoryDiv))//"javascript:return openPopup(link);")
+            aElement.classList.add('url-element')
+            aElement.addEventListener('contextmenu', (event) => {
+                event.preventDefault();
+                openPopup(link, aElement, categoryDiv)
+            });
             aElement.innerText = link.name;
             categoryDiv.appendChild(aElement)
         }
