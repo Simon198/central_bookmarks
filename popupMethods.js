@@ -27,23 +27,37 @@ function openPopup(contentItem, anchorNode) {
 
     const anchorRect = anchorNode.getBoundingClientRect()
 
+    const profileKeys = []
+    if (contentItem.profiles) {
+        contentItem.profiles.forEach(profile => {
+            for (const key in profile) {
+                if (!profileKeys.includes(key)) {
+                    profileKeys.push(key)
+                }
+            }
+        })
+    }
+
     const popup = document.createElement('div');
     popup.classList.add('popup')
-    popup.style = "position: absolute;" +
-        "left: " + anchorRect.left + "px;" +
-        "top: " + (anchorRect.top + anchorRect.height + 2) + "px;";
     popup.addEventListener('click', (event) => {
         event.preventDefault()
     });
-
+    popup.style = "position: absolute;" +
+        "left: " + anchorRect.left + "px;" +
+        "top: " + (anchorRect.top + anchorRect.height + 2) + "px;" +
+        "grid-template-columns: repeat(" + (profileKeys.length + (contentItem.profiles && contentItem.profiles.length > 1 ? 2 : 1)) + ", auto);" +
+        "grid-template-rows: repeat(" + (contentItem.profiles ? Math.max(1, contentItem.profiles.length) : 1) + ", auto);";
 
     // url
+    const urlTitle = document.createElement('span');
+    urlTitle.innerText = 'URL'
+    urlTitle.style = 'grid-column: 1; grid-row: 1'
+    popup.appendChild(urlTitle)
+
     const urlDiv = document.createElement('div');
     urlDiv.classList.add('popup-column')
-
-    const urlTitle = document.createElement('span');
-    urlTitle.innerText = 'URL:'
-    urlDiv.appendChild(urlTitle)
+    urlDiv.style = 'grid-column: 1; grid-row: 2'
 
     const url = document.createElement('a');
     url.setAttribute('href', contentItem.url);
@@ -57,45 +71,50 @@ function openPopup(contentItem, anchorNode) {
     urlDiv.appendChild(urlCopyButton)
     popup.appendChild(urlDiv)
 
+    // profiles
+    if (contentItem.profiles && contentItem.profiles.length > 1) {
+        const profilesTitle = document.createElement('span');
+        profilesTitle.innerText = 'Profil'
+        profilesTitle.style = 'grid-column: 2; grid-row: 1'
+        popup.appendChild(profilesTitle)
 
-    // username
-    if (contentItem.username) {
-        const usernameDiv = document.createElement('div');
-        usernameDiv.classList.add('popup-column')
-
-        const usernameTitle = document.createElement('span');
-        usernameTitle.innerText = 'Nutzername:'
-        usernameDiv.appendChild(usernameTitle)
-
-        const username = document.createElement('span');
-        username.innerText = contentItem.username
-        usernameDiv.appendChild(username)
-
-        const usernameCopyButton = document.createElement('button');
-        usernameCopyButton.innerText = 'Nutzernamen kopieren'
-        addCopyToClipBoardEvent(usernameCopyButton, contentItem.username)
-        usernameDiv.appendChild(usernameCopyButton)
-        popup.appendChild(usernameDiv)
+        for (let index = 0; index < contentItem.profiles.length; index++) {
+            const profilesNumber = document.createElement('span');
+            profilesNumber.innerText = index + 1
+            profilesNumber.style = 'grid-column: 2; grid-row: ' + (2 + index)
+            popup.appendChild(profilesNumber)
+        }
     }
 
-    // password
-    if (contentItem.password) {
-        const passwordDiv = document.createElement('div');
-        passwordDiv.classList.add('popup-column')
+    // key/values
+    for (const [keyIndex, profileKey] of profileKeys.entries()) {
+        // title
+        const keyTitle = document.createElement('span');
+        keyTitle.classList.add('wrap')
+        keyTitle.innerText = profileKey
+        keyTitle.style = 'grid-row: 1; grid-column: ' + (keyIndex + (contentItem.profiles.length > 1 ? 3 : 2))
+        popup.appendChild(keyTitle)
 
-        const passwordTitle = document.createElement('span');
-        passwordTitle.innerText = 'Passwort:'
-        passwordDiv.appendChild(passwordTitle)
+        for (const [profileIndex, profile] of contentItem.profiles.entries()) {
+            const profileKeyDiv = document.createElement('div');
+            profileKeyDiv.classList.add('popup-column')
+            profileKeyDiv.style = 'grid-column: ' +
+                (keyIndex + (contentItem.profiles.length > 1 ? 3 : 2)) + '; ' +
+                'grid-row: ' + (profileIndex + 2)
 
-        const password = document.createElement('span');
-        password.innerText = contentItem.password
-        passwordDiv.appendChild(password)
+            if (profile[profileKey]) {
+                const profileKeyValue = document.createElement('span');
+                profileKeyValue.classList.add('wrap')
+                profileKeyValue.innerText = profile[profileKey]
+                profileKeyDiv.appendChild(profileKeyValue)
 
-        const passwordCopyButton = document.createElement('button');
-        passwordCopyButton.innerText = 'Passwort kopieren'
-        addCopyToClipBoardEvent(passwordCopyButton, contentItem.password)
-        passwordDiv.appendChild(passwordCopyButton)
-        popup.appendChild(passwordDiv)
+                const profileKeyCopyButton = document.createElement('button');
+                profileKeyCopyButton.innerText = profileKey + ' kopieren'
+                addCopyToClipBoardEvent(profileKeyCopyButton, profile[profileKey])
+                profileKeyDiv.appendChild(profileKeyCopyButton)
+            }
+            popup.appendChild(profileKeyDiv)
+        }
     }
 
     document.body.appendChild(popup)

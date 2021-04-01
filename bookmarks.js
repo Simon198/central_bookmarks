@@ -14,22 +14,6 @@ class Category {
     }
 }
 
-class ContentItem {
-    constructor(name, url, nicknames, username, password) {
-        this.name = name;
-        this.url = url;
-        if (!nicknames) {
-            this.nicknames = [];
-        } else {
-            this.nicknames = nicknames;
-        }
-
-        this.username = username;
-        this.password = password;
-        this.active = true;
-    }
-}
-
 function includes(names, filterText) {
     if (!Array.isArray(names)) {
         names = [names];
