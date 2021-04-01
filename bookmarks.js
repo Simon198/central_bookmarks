@@ -135,5 +135,7 @@ query.split("&").forEach(function (part) {
 });
 
 // init url list
-searchbar.value = queryParams.search
+if (queryParams.search) {
+    searchbar.value = queryParams.search
+}
 createUrlList(queryParams.search);

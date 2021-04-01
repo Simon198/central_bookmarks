@@ -1,3 +1,15 @@
+function closePopupEventHandler(event) {
+    if (
+        event.target.className !== 'url-element' &&
+        (
+            !document.querySelector('.popup') ||
+            !document.querySelector('.popup').contains(event.target)
+        )
+    ) {
+        closePopups();
+    }
+}
+
 function closePopups() {
     const popups = document.getElementsByClassName('popup');
     while (popups.length > 0) {
@@ -5,22 +17,8 @@ function closePopups() {
     }
 }
 
-window.addEventListener('click', event => {
-    if (
-        event.target.className !== 'url-element' &&
-        !document.querySelector('.popup').contains(event.target)
-    ) {
-        closePopups();
-    }
-});
-window.addEventListener('contextmenu', event => {
-    if (
-        event.target.className !== 'url-element' &&
-        !document.querySelector('.popup').contains(event.target)
-    ) {
-        closePopups();
-    }
-});
+window.addEventListener('click', event => { closePopupEventHandler(event) });
+window.addEventListener('contextmenu', event => { closePopupEventHandler(event) });
 
 function openPopup(contentItem, anchorNode, parentDiv) {
     closePopups();
