@@ -127,6 +127,12 @@ const searchbar = document.getElementById('search');
 searchbar.addEventListener('keyup', () => {
     createUrlList(searchbar.value);
 })
+searchbar.addEventListener('keyup', event => {
+    if (event.key === 'Enter') {
+        searchInDuckDuckGo();
+    }
+})
+
 
 // read url params
 var query = window.location.search.substring(1);
@@ -139,5 +145,25 @@ query.split("&").forEach(function (part) {
 // init url list
 if (queryParams.search) {
     searchbar.value = queryParams.search
+} else {
+    searchbar.value = ''
 }
 createUrlList(queryParams.search);
+
+function searchInGoogle() {
+    const filterText = searchbar.value
+    if (!filterText) {
+        location.href = 'https://www.google.com/'
+    } else {
+        location.href = 'https://www.google.com/search?q=' + filterText
+    }
+}
+
+function searchInDuckDuckGo() {
+    const filterText = searchbar.value
+    if (!filterText) {
+        location.href = 'https://duckduckgo.com/'
+    } else {
+        location.href = 'https://duckduckgo.com?q=' + filterText
+    }
+}

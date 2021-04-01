@@ -26,24 +26,68 @@
     user-select: none;
 }
 
+.website-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    width: 30%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.website-button {
+    display: flex;
+    align-items: center;
+
+    min-width: 100px;
+
+    transition-duration: 0.4s;
+    background-color: white;
+    border: 2px solid blue;
+    border-radius: 40px;
+    overflow: hidden;
+    padding-left: 0px;
+    padding-top: 0px;
+}
+
+.website-button:hover {
+    background-color: rgba(0, 0, 255, 0.5);
+}
+.website-button:active {
+    background-color: rgba(0, 0, 255, 0.8);
+}
+
+.website-button-icon {
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+}
+
 .search-bar {
     display: flex;
-    border-radius: 20px;
-    border: 2px solid blue;
-
-    /* width: 200px; */
-    overflow: hidden;
     align-items: center;
+
+    border: 2px solid blue;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 255, 1);
+    margin: auto;
     height: 30px;
-    width: 200px;
+    width: 50%;
+}
+
+.search-bar:focus-within {
+    border: 2px solid rgba(0, 0, 255, 0);
+    background-color: rgba(0, 0, 255, 0.8);
 }
 
 .search-bar-input {
     border: none;
     width: 100%;
     height: 100%;
-
     padding-left: 10px;
+    background-color: white;
 }
 
 .search-icon {
@@ -53,7 +97,7 @@
 
     height: 100%;
     width: 35px;
-    background-color: blue;
+    color: white;
 }
 
 .url-element {
