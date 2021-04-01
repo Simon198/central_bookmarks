@@ -101,6 +101,7 @@ function createUrlList(filterText) {
             const aElement = document.createElement('a');
             aElement.setAttribute('href', link.url);
             aElement.setAttribute('target', '_blank');
+            aElement.addEventListener('contextmenu', (event) => openPopup(event, link, aElement, categoryDiv))//"javascript:return openPopup(link);")
             aElement.innerText = link.name;
             categoryDiv.appendChild(aElement)
         }
@@ -124,7 +125,7 @@ searchbar.addEventListener('keyup', () => {
 // read url params
 var query = window.location.search.substring(1);
 var queryParams = {};
-query.split("&").forEach(function(part) {
+query.split("&").forEach(function (part) {
     var item = part.split("=");
     queryParams[item[0]] = decodeURIComponent(item[1]);
 });
