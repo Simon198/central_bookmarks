@@ -15,6 +15,10 @@ class Category {
 }
 
 function includes(names, filterText) {
+    if (!names) {
+        return false;
+    }
+
     if (!Array.isArray(names)) {
         names = [names];
     }
