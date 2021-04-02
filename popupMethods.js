@@ -1,6 +1,7 @@
 function closePopupEventHandler(event) {
     if (
         event.target.className !== 'url-element' &&
+        event.target.tagName !== 'BUTTON' &&
         (
             !document.querySelector('.popup') ||
             !document.querySelector('.popup').contains(event.target)
@@ -40,9 +41,6 @@ function openPopup(contentItem, anchorNode) {
 
     const popup = document.createElement('div');
     popup.classList.add('popup')
-    popup.addEventListener('click', (event) => {
-        event.preventDefault()
-    });
     popup.style = "position: absolute;" +
         "left: " + anchorRect.left + "px;" +
         "top: " + (anchorRect.top + anchorRect.height + 2) + "px;" +

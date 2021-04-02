@@ -134,3 +134,42 @@ button:active {
     margin-left: 35px;
     margin-right: 35px;
 }
+
+.popup-input {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 255, 1);
+    padding-left: 10px;
+}
+
+.popup-input:focus {
+    border-color: rgba(0, 0, 255, 0.7);
+    outline-width: 0;
+}
+
+.button-footer {
+    width: 100%;
+}
+
+.cancel-button {
+    border-color: rgba(255, 0, 0, 1);
+    float: right;
+}
+.cancel-button:hover {
+    background-color: rgba(255, 0, 0, 0.5);
+}
+.cancel-button:active {
+    background-color: rgba(255, 0, 0, 0.8);
+}
+
+.save-button {
+    border-color: rgba(0, 255, 0, 1);
+    margin-left: 5px;
+    float: right;
+}
+.save-button:hover {
+    background-color: rgba(0, 255, 0, 0.5);
+}
+.save-button:active {
+    background-color: rgba(0, 255, 0, 0.8);
+}

@@ -69,7 +69,8 @@ function clearUrlList() {
 }
 
 // create url list
-function createUrlList(filterText) {
+function createUrlList() {
+    const filterText = searchbar.value
     clearUrlList();
 
     const container = document.getElementById('container');
@@ -113,7 +114,7 @@ function createUrlList(filterText) {
 // subscripe to searchbar
 const searchbar = document.getElementById('search');
 searchbar.addEventListener('keyup', () => {
-    createUrlList(searchbar.value);
+    createUrlList();
 })
 searchbar.addEventListener('keyup', event => {
     if (event.key === 'Enter') {
@@ -136,7 +137,7 @@ if (queryParams.search) {
 } else {
     searchbar.value = ''
 }
-createUrlList(queryParams.search);
+createUrlList();
 
 function searchInGoogle() {
     const filterText = searchbar.value
