@@ -118,7 +118,12 @@ searchbar.addEventListener('keyup', () => {
 })
 searchbar.addEventListener('keyup', event => {
     if (event.key === 'Enter') {
-        searchInDuckDuckGo();
+        for (const searchEngine of searchEngines) {
+            if (searchEngine.default) {
+                searchInSearchEngine(searchEngine)
+                break;
+            }
+        }
     }
 })
 
@@ -139,20 +144,47 @@ if (queryParams.search) {
 }
 createUrlList();
 
-function searchInGoogle() {
+function searchInSearchEngine(searchEngine) {
     const filterText = searchbar.value
     if (!filterText) {
-        location.href = 'https://www.google.com/'
+        location.href = searchEngine.href //'https://www.google.com/'
     } else {
-        location.href = 'https://www.google.com/search?q=' + filterText
+        location.href = searchEngine.href + '?q=' + filterText
     }
 }
 
-function searchInDuckDuckGo() {
-    const filterText = searchbar.value
-    if (!filterText) {
-        location.href = 'https://duckduckgo.com/'
-    } else {
-        location.href = 'https://duckduckgo.com?q=' + filterText
+
+// add searchengine buttons
+const websiteButtonDiv = document.getElementsByClassName('website-buttons')[0]
+for (const searchEngine of searchEngines) {
+    const websiteButton = document.createElement('button')
+    websiteButton.classList.add("website-button")
+    websiteButton.addEventListener('click', () => searchInSearchEngine(searchEngine))
+
+    if (settings.externalLinks) {
+        const engingeImage = document.createElement('img')
+        engingeImage.src = searchEngine.favicon
+        engingeImage.classList.add("website-button-icon")
+        websiteButton.appendChild(engingeImage)
     }
+    websiteButton.appendChild(document.createTextNode(searchEngine.name))
+
+    websiteButtonDiv.appendChild(websiteButton)
+}
+
+
+// <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+// add material icons
+if (settings.externalLinks) {
+    const materialIconsLink = document.createElement('link')
+    materialIconsLink.href = "https://fonts.googleapis.com/icon?family=Material+Icons"
+    materialIconsLink.rel = "stylesheet"
+    document.head.appendChild(materialIconsLink)
+
+
+    // <div class="search-icon">
+    //     <span class="material-icons unselectable">search</span>
+    //   </div>
+    const searchIconDiv = document.getElementsByClassName('search-icon')[0]
+    searchIconDiv.children[0].innerText = 'search'
 }

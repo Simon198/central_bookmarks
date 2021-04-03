@@ -1,0 +1,17 @@
+var settings = {
+    "externalLinks": true
+}
+
+var searchEngines = [
+    {
+        "name": "Google",
+        "href": "https://www.google.com/search",
+        "favicon": "https://www.google.com/favicon.ico"
+    },
+    {
+        "name": "Duck Duck Go",
+        "href": "https://duckduckgo.com",
+        "favicon": "https://duckduckgo.com/favicon.ico",
+        "default": true
+    }
+]

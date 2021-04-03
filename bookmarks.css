@@ -68,6 +68,7 @@ button:active {
 .website-button {
     display: flex;
     align-items: center;
+    justify-content: center;
     min-width: 120px;
     padding-left: 0px;
     margin-left: 12.5px;
@@ -75,6 +76,7 @@ button:active {
 }
 
 .website-button-icon {
+    flex-grow: 0;
     margin-right: 10px;
     width: 40px;
     height: 40px;
@@ -112,7 +114,9 @@ button:active {
     justify-content: center;
 
     height: 100%;
-    width: 35px;
+    /* min-width: 35px; */
+    padding-left: 7px;
+    padding-right: 7px;
     color: white;
 }
 
