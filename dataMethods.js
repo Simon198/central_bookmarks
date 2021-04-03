@@ -25,6 +25,7 @@ function openNewCategoryPopup() {
     const saveButton = document.createElement('button')
     saveButton.classList.add('save-button')
     saveButton.innerText = 'Speichern'
+    saveButton.disabled = true
     saveButton.addEventListener('click', () => {
         data.push({
             name: nameInput.value,
@@ -41,6 +42,9 @@ function openNewCategoryPopup() {
     cancelButton.addEventListener('click', () => closePopups())
     buttonFooter.appendChild(cancelButton)
 
+    nameInput.addEventListener('keyup', () => {
+        saveButton.disabled = !nameInput.value;
+    })
     popup.appendChild(buttonFooter)
 
     document.body.appendChild(popup)
