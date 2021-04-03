@@ -1,5 +1,6 @@
 // Constants
 const CATEGORY_DIV_CLASS = 'category'
+const target = settings.openLinksInNewTab ? '_blank' : '_self'
 
 // data classes
 class Category {
@@ -91,7 +92,7 @@ function createUrlList() {
         for (const link of category.content) {
             const aElement = document.createElement('a');
             aElement.setAttribute('href', link.url);
-            aElement.setAttribute('target', '_blank');
+            aElement.setAttribute('target', target);
             aElement.classList.add('url-element')
             aElement.addEventListener('contextmenu', (event) => {
                 event.preventDefault();
@@ -146,11 +147,14 @@ createUrlList();
 
 function searchInSearchEngine(searchEngine) {
     const filterText = searchbar.value
+    let url;
     if (!filterText) {
-        location.href = searchEngine.href //'https://www.google.com/'
+        url = searchEngine.href
     } else {
-        location.href = searchEngine.href + '?q=' + filterText
+        url = searchEngine.href + '?q=' + filterText
     }
+
+    window.open(url, target)
 }
 
 
@@ -173,7 +177,6 @@ for (const searchEngine of searchEngines) {
 }
 
 
-// <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 // add material icons
 if (settings.externalLinks) {
     const materialIconsLink = document.createElement('link')
@@ -181,10 +184,6 @@ if (settings.externalLinks) {
     materialIconsLink.rel = "stylesheet"
     document.head.appendChild(materialIconsLink)
 
-
-    // <div class="search-icon">
-    //     <span class="material-icons unselectable">search</span>
-    //   </div>
     const searchIconDiv = document.getElementsByClassName('search-icon')[0]
     searchIconDiv.children[0].innerText = 'search'
 }

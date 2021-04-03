@@ -1,5 +1,6 @@
 var settings = {
-    "externalLinks": true
+    "externalLinks": true,
+    "openLinksInNewTab": true
 }
 
 var searchEngines = [

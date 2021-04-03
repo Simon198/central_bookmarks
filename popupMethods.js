@@ -59,7 +59,7 @@ function openPopup(contentItem, anchorNode) {
 
     const url = document.createElement('a');
     url.setAttribute('href', contentItem.url);
-    url.setAttribute('target', '_blank');
+    url.setAttribute('target', target);
     url.innerText = contentItem.url
     urlDiv.appendChild(url)
 
