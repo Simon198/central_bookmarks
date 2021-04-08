@@ -80,9 +80,16 @@ function createUrlList() {
     for (const category of filteredData) {
         const categoryDiv = document.createElement('div');
         categoryDiv.classList.add(CATEGORY_DIV_CLASS)
-        // categoryDiv.appendChild(document.createElement('img'))
+        
+        if (category.image) {
+            const categoryImage = document.createElement('img');
+            categoryImage.classList.add('category-image');
+            categoryImage.src = category.image;
+            categoryDiv.appendChild(categoryImage)
+            categoryDiv.appendChild(document.createElement('br'))
+        }
 
-        const bold = document.createElement("h4");
+        const bold = document.createElement("b");
         bold.innerHTML = '<i>' + category.name + ':</i>'
         categoryDiv.appendChild(bold)
 
