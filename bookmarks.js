@@ -74,14 +74,12 @@ function createUrlList() {
     const filterText = searchbar.value
     clearUrlList();
 
-    const container = document.getElementById('container');
+    const container = document.getElementById('container-content');
 
     const filteredData = getFilteredData(filterText)
     for (const category of filteredData) {
         const categoryDiv = document.createElement('div');
         categoryDiv.classList.add(CATEGORY_DIV_CLASS)
-
-        categoryDiv.appendChild(document.createElement('hr'))
         // categoryDiv.appendChild(document.createElement('img'))
 
         const bold = document.createElement("h4");
@@ -108,6 +106,9 @@ function createUrlList() {
         aElement.innerText = 'Zurück nach oben';
         categoryDiv.appendChild(aElement);
 
+        if (category !== filteredData[filteredData.length - 1]) {
+            categoryDiv.appendChild(document.createElement('hr'))
+        }
         container.appendChild(categoryDiv)
     }
 }
@@ -171,7 +172,10 @@ for (const searchEngine of searchEngines) {
         engingeImage.classList.add("website-button-icon")
         websiteButton.appendChild(engingeImage)
     }
-    websiteButton.appendChild(document.createTextNode(searchEngine.name))
+    const engineName = document.createElement('span');
+    engineName.classList.add('website-button-name')
+    engineName.innerText = searchEngine.name;
+    websiteButton.appendChild(engineName)
 
     websiteButtonDiv.appendChild(websiteButton)
 }

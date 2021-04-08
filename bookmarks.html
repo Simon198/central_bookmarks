@@ -11,20 +11,25 @@
 <body id="body">
   <div class="dimmer" style="visibility: hidden;" id="dimmer"></div>
   <div class="container" id="container">
-    <h2>Bookmarks</h2>
-
-    <div class="search-bar">
-      <input id="search" class="search-bar-input">
-      <div class="search-icon">
-        <span class="material-icons unselectable">Suche</span>
+    <div class="header">
+      <h2>Bookmarks</h2>
+      <div class="search-bar">
+        <input id="search" class="search-bar-input">
+        <div class="search-icon">
+          <span class="material-icons unselectable">Suche</span>
+        </div>
       </div>
-    </div>
 
-    <div class="website-buttons">
-    </div>
+      <div class="website-buttons">
+      </div>
 
-    <div class="data-option-buttons">
-      <button onclick="openNewCategoryPopup()">+</button>
+      <!-- <div class="data-option-buttons">
+        <button onclick="openNewCategoryPopup()">+</button>
+      </div> -->
+      <hr>
+    </div>
+    <div id="container-content">
+
     </div>
 
     <!-- init data -->
