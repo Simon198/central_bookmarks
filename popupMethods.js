@@ -26,8 +26,6 @@ function openPopup(contentItem, anchorNode) {
     closePopups();
     document.getElementById('dimmer').style = 'visibility: visible';
 
-    const anchorRect = anchorNode.getBoundingClientRect()
-
     const profileKeys = []
     if (contentItem.profiles) {
         contentItem.profiles.forEach(profile => {
@@ -41,11 +39,6 @@ function openPopup(contentItem, anchorNode) {
 
     const popup = document.createElement('div');
     popup.classList.add('popup')
-    popup.style = "position: absolute;" +
-        "left: " + anchorRect.left + "px;" +
-        "top: " + (anchorRect.top + anchorRect.height + 2) + "px;" +
-        "grid-template-columns: repeat(" + (profileKeys.length + (contentItem.profiles && contentItem.profiles.length > 1 ? 2 : 1)) + ", auto);" +
-        "grid-template-rows: repeat(" + (contentItem.profiles ? Math.max(1, contentItem.profiles.length) : 1) + ", auto);";
 
     // url
     const urlTitle = document.createElement('span');
@@ -115,8 +108,19 @@ function openPopup(contentItem, anchorNode) {
         }
     }
 
+    const anchorRect = anchorNode.getBoundingClientRect()
+    popup.style = "position: absolute;" +
+        "left: " + anchorRect.left + "px;" +
+        "top: " + (anchorRect.top + anchorRect.height + 2) + "px;" +
+        "grid-template-columns: repeat(" + (profileKeys.length + (contentItem.profiles && contentItem.profiles.length > 1 ? 2 : 1)) + ", auto);" +
+        "grid-template-rows: repeat(" + (contentItem.profiles ? Math.max(1, contentItem.profiles.length) : 1) + ", auto);";
     document.body.appendChild(popup)
 
+    const popupRect = popup.getBoundingClientRect();
+    if (popupRect.left + popupRect.width > window.innerWidth - 65) {
+        const popupLeft = window.innerWidth - 65 - popupRect.width
+        popup.style.left = popupLeft + "px";
+    }
 }
 
 function addCopyToClipBoardEvent(button, text) {
