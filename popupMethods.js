@@ -53,7 +53,9 @@ function openPopup(contentItem, anchorNode) {
     const url = document.createElement('a');
     url.setAttribute('href', contentItem.url);
     url.setAttribute('target', target);
+    url.classList.add('text-overflow')
     url.innerText = contentItem.url
+    url.title = contentItem.url
     urlDiv.appendChild(url)
 
     const urlCopyButton = document.createElement('button');
@@ -81,8 +83,9 @@ function openPopup(contentItem, anchorNode) {
     for (const [keyIndex, profileKey] of profileKeys.entries()) {
         // title
         const keyTitle = document.createElement('span');
-        keyTitle.classList.add('wrap')
+        keyTitle.classList.add('text-overflow')
         keyTitle.innerText = profileKey
+        keyTitle.title = profileKey
         keyTitle.style = 'grid-row: 1; grid-column: ' + (keyIndex + (contentItem.profiles.length > 1 ? 3 : 2))
         popup.appendChild(keyTitle)
 
@@ -95,11 +98,14 @@ function openPopup(contentItem, anchorNode) {
 
             if (profile[profileKey]) {
                 const profileKeyValue = document.createElement('span');
-                profileKeyValue.classList.add('wrap')
+                profileKeyValue.classList.add('text-overflow')
+                profileKeyValue.title = profile[profileKey]
                 profileKeyValue.innerText = profile[profileKey]
                 profileKeyDiv.appendChild(profileKeyValue)
 
                 const profileKeyCopyButton = document.createElement('button');
+                profileKeyCopyButton.classList.add('text-overflow')
+                profileKeyCopyButton.title = profileKey + ' kopieren'
                 profileKeyCopyButton.innerText = profileKey + ' kopieren'
                 addCopyToClipBoardEvent(profileKeyCopyButton, profile[profileKey])
                 profileKeyDiv.appendChild(profileKeyCopyButton)
@@ -112,13 +118,14 @@ function openPopup(contentItem, anchorNode) {
     popup.style = "position: absolute;" +
         "left: " + anchorRect.left + "px;" +
         "top: " + (anchorRect.top + anchorRect.height + 2) + "px;" +
-        "grid-template-columns: repeat(" + (profileKeys.length + (contentItem.profiles && contentItem.profiles.length > 1 ? 2 : 1)) + ", auto);" +
+        "grid-template-columns: repeat(" + (profileKeys.length + (contentItem.profiles && contentItem.profiles.length > 1 ? 2 : 1)) + ", 1fr);" +
         "grid-template-rows: repeat(" + (contentItem.profiles ? Math.max(1, contentItem.profiles.length) : 1) + ", auto);";
     document.body.appendChild(popup)
 
     const popupRect = popup.getBoundingClientRect();
-    if (popupRect.left + popupRect.width > window.innerWidth - 65) {
-        const popupLeft = window.innerWidth - 65 - popupRect.width
+    if (popupRect.right > window.innerWidth - 65) {
+        const popupLeft = Math.max(window.innerWidth - 65 - popupRect.width, 65);
+        
         popup.style.left = popupLeft + "px";
     }
 }

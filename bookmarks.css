@@ -32,7 +32,6 @@ body {
 .container {
     margin-left: 35px;
     margin-right: 35px;
-    /* width: 100%; */
     height: 100%;
 }
 
@@ -152,8 +151,10 @@ button:active {
     column-gap: 15px;
     row-gap: 10px;
 
+    max-width: calc(100vw - 130px);
     border-radius: 10px;
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: auto;
     padding: 10px 20px 10px 20px;
     z-index: 1000;
     background-color: var(--popup-background);
@@ -163,13 +164,20 @@ button:active {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    width: 100%;
-    min-width: 150px;
+    width: 150px;
+    box-sizing: border-box;
 }
 
 .popup-column > a, .popup-column > span {
     margin-bottom: 5px;
+}
+
+.text-overflow {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    white-space: nowrap;
+    width: 150px;
 }
 
 .wrap { 
