@@ -1,4 +1,5 @@
 // Constants
+const DEFAULT_URL = "bookmarks.html"
 const CATEGORY_DIV_CLASS = 'category'
 const target = settings.openLinksInNewTab ? '_blank' : '_self'
 
@@ -26,7 +27,7 @@ function includes(names, filterText) {
 
     for (const name of names) {
         nName = name.replace('-', ' ').replace('_', ' ').toLowerCase()
-        nfilterText = filterText.replace('-', ' ').replace('_', ' ').toLowerCase()
+        nfilterText = filterText.replace('-', ' ').replace('_', ' ').replace('+', ' ').toLowerCase()
         if (nName.includes(nfilterText)) {
             return true;
         }
@@ -120,12 +121,19 @@ function createUrlList() {
     }
 }
 
+function changeUrl() {
+    let newUrl = DEFAULT_URL
+    if (searchbar.value) {
+        newUrl += '?search=' + searchbar.value;
+    }
+    window.history.pushState(null,"", newUrl);
+}
+
 // subscripe to searchbar
 const searchbar = document.getElementById('search');
-searchbar.addEventListener('keyup', () => {
-    createUrlList();
-})
 searchbar.addEventListener('keyup', event => {
+    createUrlList();
+    changeUrl();
     if (event.key === 'Enter') {
         for (const searchEngine of searchEngines) {
             if (searchEngine.default) {
@@ -151,6 +159,7 @@ if (queryParams.search) {
 } else {
     searchbar.value = ''
 }
+searchbar.focus()
 createUrlList();
 
 function searchInSearchEngine(searchEngine) {
