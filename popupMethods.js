@@ -117,7 +117,7 @@ function openPopup(contentItem, anchorNode) {
     const anchorRect = anchorNode.getBoundingClientRect()
     popup.style = "position: absolute;" +
         "left: " + anchorRect.left + "px;" +
-        "top: " + (anchorRect.top + anchorRect.height + 2) + "px;" +
+        "top: " + (anchorRect.top + anchorRect.height + 2 + window.scrollY) + "px;" +
         "grid-template-columns: repeat(" + (profileKeys.length + (contentItem.profiles && contentItem.profiles.length > 1 ? 2 : 1)) + ", 1fr);" +
         "grid-template-rows: repeat(" + (contentItem.profiles ? Math.max(1, contentItem.profiles.length) : 1) + ", auto);";
     document.body.appendChild(popup)
@@ -125,7 +125,6 @@ function openPopup(contentItem, anchorNode) {
     const popupRect = popup.getBoundingClientRect();
     if (popupRect.right > window.innerWidth - 65) {
         const popupLeft = Math.max(window.innerWidth - 65 - popupRect.width, 65);
-        
         popup.style.left = popupLeft + "px";
     }
 }
