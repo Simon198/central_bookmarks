@@ -130,6 +130,7 @@ function changeUrl() {
 }
 
 // subscripe to searchbar
+const clearButton = document.getElementById('clear-button');
 const searchbar = document.getElementById('search');
 searchbar.addEventListener('keyup', event => {
     createUrlList();
@@ -142,6 +143,7 @@ searchbar.addEventListener('keyup', event => {
             }
         }
     }
+    clearButton.disabled = !searchbar.value;
 })
 
 
@@ -159,6 +161,7 @@ if (queryParams.search) {
 } else {
     searchbar.value = ''
 }
+clearButton.disabled = !searchbar.value;
 searchbar.focus()
 createUrlList();
 
@@ -206,4 +209,11 @@ if (settings.externalLinks) {
 
     const searchIconDiv = document.getElementsByClassName('search-icon')[0]
     searchIconDiv.children[0].innerText = 'search'
+}
+
+function clearSearchbar() {
+    searchbar.value = ''
+    searchbar.focus();
+    createUrlList();
+    changeUrl();
 }
