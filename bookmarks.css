@@ -1,14 +1,14 @@
 :root {
-    --main-bg-color: rgb(255, 182, 46);
+    --main-bg-color: rgb(255, 247, 131);
+    --header-bg-color: rgb(255, 244, 85);
     --text-color-body: rgb(0, 0, 0);
     --text-color-buttons: rgb(255, 255, 255);
 
     /* buttons */
-    --buttons: 0, 0, 255;
     --buttons-background: var(--main-bg-color);
-    --buttons-border: rgba(var(--buttons), 1);
-    --buttons-hover: rgba(var(--buttons), 0.5);
-    --buttons-active: rgba(var(--buttons), 0.8);
+    --buttons-border: rgba(175, 175, 0, 0.5);
+    --buttons-hover: rgba(175, 175, 0, 0.75);
+    --buttons-active: rgba(175, 175, 0, 1.0);
 
     /* popup */
     --popup-background: var(--main-bg-color);
@@ -38,7 +38,7 @@ body {
 .header {
     position: sticky;
     top: 0;
-    background-color: var(--main-bg-color);
+    background-color: var(--header-bg-color);
 }
 
 .container-content {
@@ -71,7 +71,7 @@ button:active {
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     width: 100%;
     margin-top: 10px;
     white-space: nowrap;
@@ -115,8 +115,12 @@ button:active {
     width: 50%;
 }
 
+.search-bar:hover {
+    background-color: var(--buttons-hover);
+}
+
 .search-bar:focus-within {
-    background-color: rgba(0, 0, 255, 0.75);
+    background-color: var(--buttons-active);
 }
 
 .search-bar-input {
@@ -219,11 +223,11 @@ button:active {
     width: 150px;
 }
 
-.wrap { 
-    white-space: pre-wrap;      /* CSS3 */   
-    white-space: -moz-pre-wrap; /* Firefox */    
-    white-space: -pre-wrap;     /* Opera <7 */   
-    white-space: -o-pre-wrap;   /* Opera 7 */    
+.wrap {
+    white-space: pre-wrap;      /* CSS3 */
+    white-space: -moz-pre-wrap; /* Firefox */
+    white-space: -pre-wrap;     /* Opera <7 */
+    white-space: -o-pre-wrap;   /* Opera 7 */
     word-wrap: break-word;      /* IE */
  }
 
